@@ -50,10 +50,10 @@ public class Servidor {
             );
 
             Request request = new Request.Builder()
-                .url("https://mglwglpcoenwwlpzwhfk.supabase.co/rest/v1/name")
+                .url("SUA_URL")
                 .post(body)
-                .addHeader("apikey", "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nbHdnbHBjb2Vud3dscHp3aGZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzM4MDgsImV4cCI6MjA5MjEwOTgwOH0.APd2ie53o2eXr-coV3SaSDcVdmP_0YUfRKRdUztg3eo")
-                .addHeader("Authorization", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1nbHdnbHBjb2Vud3dscHp3aGZrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzY1MzM4MDgsImV4cCI6MjA5MjEwOTgwOH0.APd2ie53o2eXr-coV3SaSDcVdmP_0YUfRKRdUztg3eo")
+                .addHeader("apikey", "SUA_KEY")
+                .addHeader("Authorization", "Bearer SUA_KEY")
                 .addHeader("Content-type", "application/json")
                 .build();
 
