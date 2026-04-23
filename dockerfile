@@ -3,7 +3,7 @@ FROM eclipse-temurin:17 AS builder
 RUN apt-get update && apt-get install -y maven
 WORKDIR /app
 COPY . .
-RUN mvn package -DskipTests
+RUN mvn package
 
 # Stage 2 — execução (imagem menor, só para rodar)
 FROM eclipse-temurin:17-jre

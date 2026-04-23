@@ -6,6 +6,9 @@ import okhttp3.MediaType;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import static org.junit.jupiter.api.Assertions.*;
+
+import org.junit.jupiter.api.Tag;
+
 import io.github.cdimascio.dotenv.Dotenv;
 
 public class ServidorTest {
@@ -13,6 +16,7 @@ public class ServidorTest {
     final Dotenv dotenv = Dotenv.load();
 
     @Test
+    @Tag("unitario")
     void deveExtrairNomeDoJSON() {
         // 1. Prepara o dado de entrada
         String corpo = "{\"nome\": \"Eric\" , \"cidade\": \"BH\"}";
@@ -32,6 +36,7 @@ public class ServidorTest {
     }
 
     @Test
+    @Tag("integracao")
     void deveReceberCodigo200() throws Exception {
     // 1. Prepara o dado de entrada
     
@@ -49,6 +54,7 @@ public class ServidorTest {
     }
 
     @Test
+    @Tag("integracao")
     void conexaoBanco() throws Exception {
     // 1. Prepara o dado de entrada
     
@@ -68,6 +74,7 @@ public class ServidorTest {
     }
 
     @Test
+    @Tag("integracao")
     void formularioServidor() throws Exception {
 
         String corpo = "{\"nome\": \"Eric\" , \"cidade\": \"BH\"}";
@@ -93,6 +100,7 @@ public class ServidorTest {
     }
 
     @Test
+    @Tag("integracao")
     void servidorBanco() throws Exception {
 
         String corpo = "{\"nome\": \"Eric\" , \"cidade\": \"BH\"}";
@@ -126,6 +134,7 @@ public class ServidorTest {
     }
 
     @Test
+    @Tag("integracao")
     void dadoDuplicado() throws Exception {
 
         String corpo = "{\"nome\": \"Eric\" , \"cidade\": \"BH\"}";
