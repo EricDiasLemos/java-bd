@@ -1,4 +1,3 @@
-package com.Estudo;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -10,9 +9,13 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.MediaType;
+import io.github.cdimascio.dotenv.Dotenv;
 
 public class Servidor {
     public static void main(String[] args) throws Exception{
+        
+        final Dotenv dotenv = Dotenv.load();
+        
         HttpServer server = HttpServer.create(new InetSocketAddress(8000) , 0);
 
         server.createContext("/", exchange -> {
@@ -37,12 +40,15 @@ public class Servidor {
             String corpo = new String(exchange.getRequestBody().readAllBytes());
 
             JsonObject json = JsonParser.parseString(corpo).getAsJsonObject();
+            System.out.println(json);
             String nome = json.get("nome").getAsString();
+            String cidade = json.get("cidade").getAsString();
             System.out.println("Nome recebido: " + nome);
+            System.out.println("Cidade recebida: " + cidade);
 
             OkHttpClient client = new OkHttpClient();
 
-            String json_supabase = "{\"name\": \"" + nome + "\"}";
+            String json_supabase = "{\"name\": \"" + nome + "\", \"cidade\": \"" + cidade + "\"}";
 
             RequestBody body = RequestBody.create(
                 json_supabase,
@@ -50,14 +56,12 @@ public class Servidor {
             );
 
             Request request = new Request.Builder()
-                .url("SUA_URL")
+                .url(dotenv.get("SUPABASE_URL_PROD"))
                 .post(body)
-                .addHeader("apikey", "SUA_KEY")
-                .addHeader("Authorization", "Bearer SUA_KEY")
+                .addHeader("apikey", dotenv.get("SUPABASE_KEY_PROD"))
+                .addHeader("Authorization", "Bearer " + dotenv.get("SUPABASE_KEY_PROD"))
                 .addHeader("Content-type", "application/json")
                 .build();
-
-            client.newCall(request).execute();
 
             okhttp3.Response response = client.newCall(request).execute();
             System.out.println("Status Supabase: " + response.code());
@@ -66,7 +70,7 @@ public class Servidor {
             String resposta = "{\"status\": \"salvo com sucesso\"}";
             byte[] bytes = resposta.getBytes();
             exchange.getResponseHeaders().set("Content-Type", "application/json");
-            exchange.sendResponseHeaders(200, bytes.length);
+            exchange.sendResponseHeaders(response.code(), bytes.length);
             exchange.getResponseBody().write(bytes);
             exchange.getResponseBody().close();
 
