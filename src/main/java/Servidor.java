@@ -56,10 +56,10 @@ public class Servidor {
             );
 
             Request request = new Request.Builder()
-                .url(dotenv.get("SUPABASE_URL_PROD"))
+                .url(System.getenv("SUPABASE_URL_PROD"))
                 .post(body)
-                .addHeader("apikey", dotenv.get("SUPABASE_KEY_PROD"))
-                .addHeader("Authorization", "Bearer " + dotenv.get("SUPABASE_KEY_PROD"))
+                .addHeader("apikey", System.getenv("SUPABASE_KEY_PROD"))
+                .addHeader("Authorization", "Bearer " + System.getenv("SUPABASE_KEY_PROD"))
                 .addHeader("Content-type", "application/json")
                 .build();
 
