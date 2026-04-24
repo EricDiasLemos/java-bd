@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: java-bd
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: java-bd
+  template:
+    metadata:
+      labels:
+        app: java-bd
+    spec:
+      containers:
+      - name: java-bd
+        image: java-bd:latest
+        imagePullPolicy: Never
+        ports:
+        - containerPort: 8080
+        env:
+        - name: SUPABASE_URL_PROD
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: SUPABASE_URL_PROD
+        - name: SUPABASE_KEY_PROD
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: SUPABASE_KEY_PROD
+        - name: SUPABASE_URL_TEST
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: SUPABASE_URL_TEST
+        - name: SUPABASE_KEY_TEST
+          valueFrom:
+            secretKeyRef:
+              name: supabase-secrets
+              key: SUPABASE_KEY_TEST
