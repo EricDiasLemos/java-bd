@@ -15,7 +15,7 @@ pipeline {
     stage('Testes Java') {
       steps {
         sh '''
-          cd /home/ubuntu/java-bd
+          cd /home/ubuntu/java-bd/java-bd
           mvn test \
             -DSUPABASE_URL_PROD=$SUPABASE_URL_PROD \
             -DSUPABASE_KEY_PROD=$SUPABASE_KEY_PROD \
@@ -26,7 +26,7 @@ pipeline {
     }
     stage('Build Image') {
       steps {
-        sh 'cd /home/ubuntu/java-bd && docker build -t java-bd:latest .'
+        sh 'cd /home/ubuntu/java-bd/java-bd && docker build -t java-bd:latest .'
       }
     }
     stage('Import para K3s') {
@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Deploy no K3s') {
       steps {
-        sh 'kubectl apply -f /home/ubuntu/java-bd/k8s/'
+        sh 'kubectl apply -f /home/ubuntu/java-bd/java-bd/k8s/'
       }
     }
   }
