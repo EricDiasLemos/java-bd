@@ -9,12 +9,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.MediaType;
-import io.github.cdimascio.dotenv.Dotenv;
 
 public class Servidor {
     public static void main(String[] args) throws Exception{
-        
-        final Dotenv dotenv = Dotenv.load();
         
         HttpServer server = HttpServer.create(new InetSocketAddress(8000) , 0);
 
