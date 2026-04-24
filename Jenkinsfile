@@ -16,11 +16,19 @@ pipeline {
       steps {
         sh '''
           cd /home/ubuntu/java-bd/java-bd
-          mvn test \
-            -DSUPABASE_URL_PROD=$SUPABASE_URL_PROD \
-            -DSUPABASE_KEY_PROD=$SUPABASE_KEY_PROD \
-            -DSUPABASE_URL_TEST=$SUPABASE_URL_TEST \
-            -DSUPABASE_KEY_TEST=$SUPABASE_KEY_TEST
+
+          # Criar .env temporário para os testes
+          cat > .env <<ENVFILE
+SUPABASE_URL_PROD=$SUPABASE_URL_PROD
+SUPABASE_KEY_PROD=$SUPABASE_KEY_PROD
+SUPABASE_URL_TEST=$SUPABASE_URL_TEST
+SUPABASE_KEY_TEST=$SUPABASE_KEY_TEST
+ENVFILE
+
+          mvn test
+
+          # Remover .env após os testes
+          rm -f .env
         '''
       }
     }
